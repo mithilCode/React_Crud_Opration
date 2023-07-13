@@ -85,13 +85,15 @@ const Crud = () => {
   return (
     <section className="form_input">
       <div className="part_1">
+        <h2>React Crud Opration</h2>
         <form className="input_set" onSubmit={handleSubmit}>
           <input type="text" placeholder="First Name" name="fname" value={inputdata.fname} onChange={handleChange} required />
+
           <input type="text" placeholder="Last Name" name="lname" value={inputdata.lname} onChange={handleChange} required />
           <input type="email" placeholder="Email" name="email" value={inputdata.email} onChange={handleChange} required />
-          <input type="number" placeholder="Number" name="number" value={inputdata.number} onChange={handleChange} required />
+          <input type="number" placeholder="Mobile Number" name="number" value={inputdata.number} onChange={handleChange} required />
           <select name="gender" value={inputdata.gender} onChange={handleChange} required>
-            <option value="" defaultValue hidden>Select</option>
+            <option value="" defaultValue hidden>Select Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
