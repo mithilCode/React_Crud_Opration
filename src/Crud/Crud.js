@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 const Crud = () => {
   const [inputdata, setInputData] = useState({
     fname: '',
@@ -13,19 +12,19 @@ const Crud = () => {
     agree: false,
   });
   const [inputdataArray, setInputDataArray] = useState([]);
-  const[editData,setEditData]=useState(-1);
+  const [editData, setEditData] = useState(-1);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!inputdata.agree){
-        alert("Please Accept Policy");
-        return;
+    if (!inputdata.agree) {
+      alert("Please Accept Policy");
+      return;
     }
-    if(editData===-1){
+    if (editData === -1) {
       setInputDataArray((prevDataArray) => [...prevDataArray, inputdata]);
-    }else{
-      setInputDataArray((prevDataArray)=>{
-        const updatedArray=[...prevDataArray];
-        updatedArray[editData]=inputdata;
+    } else {
+      setInputDataArray((prevDataArray) => {
+        const updatedArray = [...prevDataArray];
+        updatedArray[editData] = inputdata;
         return updatedArray;
       })
     }
@@ -45,10 +44,9 @@ const Crud = () => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const inputValue = type === 'checkbox' ? checked : value;
-    console.log(inputValue);
     setInputData({
       ...inputdata,
-      [name]: inputValue,
+      [name]: value,
     })
   }
   const handelFile = (e) => {
@@ -59,14 +57,14 @@ const Crud = () => {
     })
   }
   const handleEdit = (index) => {
-    const selectedItem=inputdataArray[index];
+    const selectedItem = inputdataArray[index];
     setInputData(selectedItem);
     setEditData(index)
   }
   const handleDelete = (index) => {
-    setInputDataArray((prevDataArray)=>{
-      const upDateArray=[...prevDataArray];
-      upDateArray.splice(index,1);
+    setInputDataArray((prevDataArray) => {
+      const upDateArray = [...prevDataArray];
+      upDateArray.splice(index, 1);
       return upDateArray;
     })
     setInputData({
@@ -81,7 +79,6 @@ const Crud = () => {
       agree: false,
     })
   }
-  console.log(inputdata.agree);
   useEffect(() => {
     console.log(inputdataArray);
   }, [inputdataArray]);
@@ -113,7 +110,7 @@ const Crud = () => {
           <input type="file" multiple onChange={handelFile} required />
           <textarea name="address" placeholder="Address" value={inputdata.address} onChange={handleChange} required></textarea>
           <div className="chackebox_set">
-            <input type="checkbox" name="agree" checked={inputdata.agree} onChange={handleChange} id="agree"/>
+            <input type="checkbox" name="agree" checked={inputdata.agree} onChange={handleChange} id="agree" />
             <label htmlFor="agree">Accept Term & Agrement</label>
           </div>
           <button>Submit</button>
