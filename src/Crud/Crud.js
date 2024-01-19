@@ -51,7 +51,7 @@ const Crud = () => {
     })
   }
   const handelFile = (e) => {
-    const files =URL.createObjectURL(e.target.files[0]);
+  const files = Array.from(e.target.files);
     setInputData({
       ...inputdata,
       files,
@@ -147,7 +147,11 @@ const Crud = () => {
                   <td>{tabelFields.gender}</td>
                   <td>{tabelFields.liveindia}</td>
                   <td>{tabelFields.address}</td>
-                  <td className='table_img'> <img src={tabelFields.files} alt="fbgf" /></td>
+                 <td className='table_img'>
+                          {tabelFields.files && tabelFields.files.map((file, index) => (
+                            <img key={index} src={URL.createObjectURL(file)} alt='Img' />
+                          ))}
+                        </td>
                   <td><button onClick={() => handleEdit(index)}>Edit</button><button onClick={() => handleDelete(index)}>Delete</button></td>
                 </tr>
               )
