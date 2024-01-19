@@ -13,6 +13,7 @@ const Crud = () => {
   });
   const [inputdataArray, setInputDataArray] = useState([]);
   const [editData, setEditData] = useState(-1);
+    const [search, setSearch] = useState();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!inputdata.agree) {
@@ -50,7 +51,7 @@ const Crud = () => {
     })
   }
   const handelFile = (e) => {
-    const files = Array.from(e.target.files);
+    const files =URL.createObjectURL(e.target.files[0]);
     setInputData({
       ...inputdata,
       files,
@@ -118,6 +119,7 @@ const Crud = () => {
           <button>Submit</button>
         </form>
       </div>
+  <input type="search" onChange={(e) => setSearch(e.target.value.trim())} placeholder='Search' />
       <div className="part_2">
         <table border="2">
           <thead>
@@ -134,7 +136,8 @@ const Crud = () => {
             </tr>
           </thead>
           <tbody>
-            {inputdataArray.map((tabelFields, index) => {
+          {inputdataArray
+                  ?.filter(item => item?.fname?.includes(search))?.map((tabelFields, index) => {
               return (
                 <tr key={index}>
                   <td>{tabelFields.fname}</td>
@@ -144,13 +147,7 @@ const Crud = () => {
                   <td>{tabelFields.gender}</td>
                   <td>{tabelFields.liveindia}</td>
                   <td>{tabelFields.address}</td>
-                  <td>{tabelFields.files.map((file, i) => {
-                    return (
-                      <pre key={i}>
-                        {file.name}
-                      </pre>
-                    )
-                  })}</td>
+                  <td className='table_img'> <img src={tabelFields.files} alt="fbgf" /></td>
                   <td><button onClick={() => handleEdit(index)}>Edit</button><button onClick={() => handleDelete(index)}>Delete</button></td>
                 </tr>
               )
